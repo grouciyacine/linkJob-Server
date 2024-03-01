@@ -15,14 +15,14 @@ app.use(
 app.use(passport.initialize())
 app.use(passport.session())
 
-app.use(
-    cors({
-        origin: "https://linkjob-grouciyacine.vercel.app/",
-        methods: "GET,POST,PUT,DELETE",
-        credentials: true,
-    })
-);
-
+app.use(cors({ origin: 'https://linkjob-grouciyacine.vercel.app', credentials: true }));
+app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', 'https://linkjob-grouciyacine.vercel.app');
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
+    //res.setHeader('Cross-Origin-Opener-Policy', 'unsafe-none');
+    res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    next();
+});
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
         // Set the destination folder where uploaded files will be stored
