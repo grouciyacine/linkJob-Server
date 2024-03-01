@@ -9,11 +9,19 @@ import passport from './passport/google.js'
 import PassportRoute from './routes/Passport.js'
 import CookieSession from 'cookie-session'
 const app = express();
+const configCors = {
+    origin: "*",
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH"]
+}
+app.options("",cors(configCors))
+app.use(cors())
 app.use(
     CookieSession({ name: "session", keys: ["lama"], maxAge: 24 * 60 * 60 * 100 })
 );
 app.use(passport.initialize())
 app.use(passport.session())
+
 
 
 app.use((req, res, next) => {
@@ -37,7 +45,7 @@ const storage = multer.diskStorage({
     filename: function (req, file, cb) {
         // Set the filename for the uploaded file
         const fileName = Date.now() + "-" + file.originalname.replace(/\s+/g, '-');
-        cb(null,fileName);
+        cb(null, fileName);
     },
 });
 const upload = multer({ storage: storage });
