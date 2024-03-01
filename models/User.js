@@ -1,0 +1,49 @@
+import mongoose from 'mongoose';
+const User= new mongoose.Schema({
+    name:{
+        type:String,
+        required:[true,'please enter a name']
+    },
+    password:{
+        type:String,
+    },
+    email:{
+        type:String,
+    },
+    Resume:{
+        type:String,
+        default:'' 
+    },
+    path:{
+        type:String,
+    },
+    CoverLetter:{
+        type:String,
+    },
+    tel:{  
+        type:String,
+    },
+    location:{
+        type:String
+    },
+    work:{
+        type:Boolean,
+        default:false
+    },
+    favoriteJobs:{
+        type:[String]
+    },
+    fromGoogle:{
+        type:Boolean
+    },
+    url:{
+        type:String,
+        default:false
+    },
+    About:{
+        type:String,
+    },
+    certificates:[String],
+    compannyIds:[String]
+})
+export default mongoose.model('User',User)
