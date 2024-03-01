@@ -1,4 +1,5 @@
 {
+    
     "version":2,
     "name":"linkjob-server",
     "builds":[
@@ -10,7 +11,7 @@
     "routes":[
         {
             "src":"/(.*)",
-            "dest":"/index.js"
+            "dest":"/"
         }
     ]
 }
