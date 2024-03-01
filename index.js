@@ -11,11 +11,10 @@ import CookieSession from 'cookie-session'
 const app = express();
 const configCors = {
     origin: "*",
-    credentials: true,
+    credential: true,
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH"]
 }
 app.options("",cors(configCors))
-app.use(cors())
 app.use(
     CookieSession({ name: "session", keys: ["lama"], maxAge: 24 * 60 * 60 * 100 })
 );
@@ -28,7 +27,7 @@ app.use((req, res, next) => {
     res.header("Access-Control-Allow-Credentials", true)
     next()
 })
-app.use(cors({ origin: 'https://linkjob-grouciyacine.vercel.app', credentials: true }));
+//app.use(cors({ origin: 'https://linkjob-grouciyacine.vercel.app', credentials: true }));
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', 'https://linkjob-grouciyacine.vercel.app');
     res.setHeader('Access-Control-Allow-Credentials', 'true');
