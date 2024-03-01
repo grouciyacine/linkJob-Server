@@ -17,7 +17,7 @@ app.use(passport.session())
 
 app.use(
     cors({
-        origin: "https://linkjob-2yyin7y6c-grouciyacine.vercel.app/",
+        origin: "https://linkjob-2yyin7y6c-grouciyacine.vercel.app",
         methods: "GET,POST,PUT,DELETE",
         credentials: true,
     })
