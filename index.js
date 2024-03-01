@@ -8,23 +8,6 @@ import cors from 'cors'
 import passport from './passport/google.js'
 import PassportRoute from './routes/Passport.js'
 import CookieSession from 'cookie-session'
-
-const allowCors = fn => async (req, res) => {
-    res.setHeader('Access-Control-Allow-Credentials', true);
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
-    res.setHeader(
-        'Access-Control-Allow-Headers',
-        'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
-    );
-
-    if (req.method === 'OPTIONS') {
-        res.status(200).end();
-        return;
-    }
-
-    return await fn(req, res);
-};
 const app = express();
 app.use(
     CookieSession({ name: "session", keys: ["lama"], maxAge: 24 * 60 * 60 * 100 })
@@ -33,7 +16,18 @@ app.use(passport.initialize())
 app.use(passport.session())
 
 
-
+app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Credentials", true)
+    next()
+})
+app.use(cors({ origin: 'https://linkjob-grouciyacine.vercel.app', credentials: true }));
+app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', 'https://linkjob-grouciyacine.vercel.app');
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
+    //res.setHeader('Cross-Origin-Opener-Policy', 'unsafe-none');
+    res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    next();
+});
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -43,7 +37,7 @@ const storage = multer.diskStorage({
     filename: function (req, file, cb) {
         // Set the filename for the uploaded file
         const fileName = Date.now() + "-" + file.originalname.replace(/\s+/g, '-');
-        cb(null, fileName);
+        cb(null,fileName);
     },
 });
 const upload = multer({ storage: storage });
@@ -58,7 +52,7 @@ app.post("/api/v1/upload", upload.single("file"), (req, res) => {
     res.status(200).json({ message: "File uploaded successfully", filename, filePath });
 
 });
-app.use(allowCors);
+
 
 app.use('/api/v1/user', UserAuth);
 app.use('/api/v1/jobs', JobsRouter);
