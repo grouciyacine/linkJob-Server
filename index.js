@@ -15,6 +15,10 @@ app.use(
 app.use(passport.initialize())
 app.use(passport.session())
 
+app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Credentials", true)
+    next()
+})
 app.use(cors({ origin: 'https://linkjob-grouciyacine.vercel.app', credentials: true }));
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', 'https://linkjob-grouciyacine.vercel.app');
