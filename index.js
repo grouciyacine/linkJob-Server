@@ -17,7 +17,7 @@ app.use(passport.session())
 
 // Middleware to enable CORS for all routes
 app.use(cors({
-    origin: 'https://linkjob-coral.vercel.app',
+    origin: 'https://linkjob-grouciyacine.vercel.app',
     credentials: true
 }));
 
@@ -29,7 +29,7 @@ app.use((req, res, next) => {
 
 // Middleware to set additional CORS headers
 app.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', 'https://linkjob-coral.vercel.app/');
+    res.setHeader('Access-Control-Allow-Origin', 'https://linkjob-grouciyacine.vercel.app');
     res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
     next();
 });
