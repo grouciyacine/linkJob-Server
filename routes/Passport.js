@@ -1,6 +1,6 @@
 import passport from 'passport'
 import express from 'express';
-const CLIENT_URL = "https://linkjob-grouciyacine.vercel.app/";
+const CLIENT_URL = "http://linkjob-grouciyacine.vercel.app/";
 const app = express();
 app.get("/login/success", (req, res) => {
     console.log(req?.user)
