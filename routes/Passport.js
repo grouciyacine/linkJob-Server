@@ -1,6 +1,6 @@
 import passport from 'passport'
 import express from 'express';
-const CLIENT_URL = "http://linkjob-grouciyacine.vercel.app/";
+const CLIENT_URL = "https://linkjob-grouciyacine.vercel.app";
 const app = express();
 app.get("/login/success", (req, res) => {
     console.log(req?.user)
@@ -11,7 +11,7 @@ app.get("/login/success", (req, res) => {
             user: req.user,
             //   cookies: req.cookies
         });
-    }else {
+    } else {
         console.log("User is not authenticated");
         res.status(401).json({
             success: false,
@@ -34,14 +34,14 @@ app.get("/logout", (req, res) => {
 app.get("/github", passport.authenticate("github", { scope: ["profile"] }));
 
 app.get(
-  "/github/callback",
-  passport.authenticate("github", {
-    successRedirect: CLIENT_URL,
-    failureRedirect: "/login/failed",
-  })
+    "/github/callback",
+    passport.authenticate("github", {
+        successRedirect: CLIENT_URL,
+        failureRedirect: "/login/failed",
+    })
 );
 
-app.get("/linkedin", passport.authenticate("linkedin", { }));
+app.get("/linkedin", passport.authenticate("linkedin", {}));
 
 app.get(
     "/linkedin/callback",
