@@ -18,6 +18,7 @@ app.options("", cors(configCors))
 /*app.use(
     CookieSession({ name: "session", keys: ["lama"], maxAge: 24 * 60 * 60 * 100 })
 );*/
+app.set('trust proxy', 1)
 app.use(
     CookieSession({
         name: "session",
