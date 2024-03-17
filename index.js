@@ -15,8 +15,18 @@ const configCors = {
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH"]
 }
 app.options("", cors(configCors))
-app.use(
+/*app.use(
     CookieSession({ name: "session", keys: ["lama"], maxAge: 24 * 60 * 60 * 100 })
+);*/
+app.use(
+    cookieSession({
+        name: "session",
+        keys: ["lama"],
+        maxAge: 24 * 60 * 60 * 1000, // Adjusted maxAge value (in milliseconds)
+        secure: true, // Ensures cookies are only sent over HTTPS
+        httpOnly: true, // Prevents client-side JavaScript from accessing the cookie
+        sameSite: 'none' // Allows cross-site requests
+    })
 );
 app.use(passport.initialize())
 app.use(passport.session())
