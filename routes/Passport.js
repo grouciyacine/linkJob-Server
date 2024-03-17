@@ -61,7 +61,7 @@ app.get("/google", passport.authenticate("google", { scope: ["profile"] }));
 app.get(
     "/google/callback",
     passport.authenticate("google", {
-        successRedirect: "/login/success",
+        successRedirect: CLIENT_URL,
         failureRedirect: "/login/failed",
     })
 );
