@@ -2,6 +2,7 @@ import passport from 'passport'
 import express from 'express';
 const CLIENT_URL = "https://linkjob-grouciyacine.vercel.app";
 const app = express();
+
 app.get("/login/success", (req, res) => {
     console.log(req?.user)
     if (req.user) {
@@ -50,12 +51,17 @@ app.get(
         failureRedirect: "/login/failed",
     })
 );
+// Middleware to log any errors that occur during authentication
+app.use("/google/callback", (err, req, res, next) => {
+    console.error("Error during authentication:", err);
+    next(err); // Pass the error to the next middleware
+});
 app.get("/google", passport.authenticate("google", { scope: ["profile"] }));
 
 app.get(
     "/google/callback",
     passport.authenticate("google", {
-        successRedirect: CLIENT_URL,
+        successRedirect: "/login/success",
         failureRedirect: "/login/failed",
     })
 );

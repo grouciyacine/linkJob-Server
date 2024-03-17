@@ -14,7 +14,7 @@ const configCors = {
     credential: true,
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH"]
 }
-app.options("",cors(configCors))
+app.options("", cors(configCors))
 app.use(
     CookieSession({ name: "session", keys: ["lama"], maxAge: 24 * 60 * 60 * 100 })
 );
@@ -59,7 +59,6 @@ app.post("/api/v1/upload", upload.single("file"), (req, res) => {
     res.status(200).json({ message: "File uploaded successfully", filename, filePath });
 
 });
-
 
 app.use('/api/v1/user', UserAuth);
 app.use('/api/v1/jobs', JobsRouter);
