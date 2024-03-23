@@ -21,10 +21,10 @@ app.options("", cors(configCors))
 );*/
 app.set('trust proxy', 1) // trust first proxy
 app.use(session({
-  secret: 'keyboard cat',
-  resave: false,
-  saveUninitialized: true,
-  cookie: { secure: true }
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: true ,maxAge: 1000 * 60 * 60 * 48, sameSite: 'none'}
 }))
 /*app.use(
     CookieSession({
