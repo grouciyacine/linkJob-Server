@@ -40,8 +40,9 @@ app.use((req, res, next) => {
 //app.use(cors({ origin: 'https://linkjob-grouciyacine.vercel.app', credentials: true }));
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', 'https://linkjob-liart.vercel.app');//https://linkjob-grouciyacine.vercel.app
-    res.setHeader('Access-Control-Allow-Credentials', 'true');
-    res.setHeader('Access-Control-Allow-Headers', '*');
+    res.header('Access-Control-Allow-Headers', true);
+    res.header('Access-Control-Allow-Credentials', true);
+    res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
     next();
 });
 
