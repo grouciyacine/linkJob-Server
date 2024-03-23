@@ -15,33 +15,23 @@ const configCors = {
     credential: true,
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH"]
 }
+app.set('trust proxy', 1)
 app.options("", cors(configCors))
 /*app.use(
     CookieSession({ name: "session", keys: ["lama"], maxAge: 24 * 60 * 60 * 100 })
 );*/
-app.set('trust proxy', 1) // trust first proxy
-app.use(session({
-    secret: 'keyboard cat',
-    resave: false,
-    saveUninitialized: true,
-    cookie: { secure: true ,maxAge: 1000 * 60 * 60 * 48, sameSite: 'none'}
-}))
-/*app.use(
+app.use(
     CookieSession({
         name: "session",
-        secureProxy:true,
-        keys: ["lama"],
-        maxAge: 24 * 60 * 60 * 1000, // Adjusted maxAge value (in milliseconds)
-        secure: true, // Ensures cookies are only sent over HTTPS
-        httpOnly: true, // Prevents client-side JavaScript from accessing the cookie
-        sameSite: 'none' ,// Allows cross-site requests
-        
+        keys: ["lama"], 
+        maxAge: 24 * 60 * 60 * 1000, 
+        secure: true, 
+        httpOnly: true, 
+        sameSite: "none" 
     })
-);*/
+);
 app.use(passport.initialize())
 app.use(passport.session())
-
-
 
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Credentials", true)
