@@ -77,12 +77,10 @@ passport.use(
   )
 )
 passport.serializeUser((user, done) => {
-  console.log('Serializing user:', user);
   done(null, user);
 });
 
 passport.deserializeUser((user, done) => {
-  console.log('Deserializing user:', user);
   done(null, user);
 });
 export default passport
