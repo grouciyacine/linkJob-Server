@@ -8,6 +8,7 @@ import cors from 'cors'
 import passport from './passport/google.js'
 import PassportRoute from './routes/Passport.js'
 import CookieSession from 'cookie-session'
+import session from 'express-session'
 const app = express();
 const configCors = {
     origin: "*",
@@ -18,8 +19,14 @@ app.options("", cors(configCors))
 /*app.use(
     CookieSession({ name: "session", keys: ["lama"], maxAge: 24 * 60 * 60 * 100 })
 );*/
-app.set('trust proxy', 1)
-app.use(
+app.set('trust proxy', 1) // trust first proxy
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: true }
+}))
+/*app.use(
     CookieSession({
         name: "session",
         secureProxy:true,
@@ -30,7 +37,7 @@ app.use(
         sameSite: 'none' ,// Allows cross-site requests
         
     })
-);
+);*/
 app.use(passport.initialize())
 app.use(passport.session())
 
