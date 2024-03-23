@@ -22,6 +22,7 @@ app.set('trust proxy', 1)
 app.use(
     CookieSession({
         name: "session",
+        secureProxy:true,
         keys: ["lama"],
         maxAge: 24 * 60 * 60 * 1000, // Adjusted maxAge value (in milliseconds)
         secure: true, // Ensures cookies are only sent over HTTPS
